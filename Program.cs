@@ -12,21 +12,32 @@ namespace password_keeper
         static void Greetings()
         {
             string userName;
-            string[] greetingsArr = { "Good Morning, ", "Good Afternoon, ", "Good Evening, " };
+            string[] greetingsArr = { "Good Morning, ", "Good Afternoon, " };
 
 
             Console.WriteLine("What is your name...");
             userName = Console.ReadLine();
 
 
-            // Serve custom greeting based on time of day.
+            // Gets string retuned from getTimeOfDay method.
             string timeOfDay = getTimeOfDay();
 
             // Assign greeting based on timeOfDay value returned.
-            
+            string dayTypeCode = timeOfDay.Substring(timeOfDay.Length - 2);
+            if(dayTypeCode == "AM")
+            {
+                Console.WriteLine("\n" + greetingsArr[0] + userName + '.');
+            }else if(dayTypeCode == "PM")
+            {
+                Console.WriteLine("\n" + greetingsArr[1] + userName + '.');
+            }
 
-            Console.WriteLine("\n" + greetingsArr[0] + userName + '.');
-            Console.WriteLine(timeOfDay);
+            // Password setup
+            Console.WriteLine("Looks like this is your first time using this application." + "\n" + "It's time to setup your password: " + "\n");
+            string userPassword = Console.ReadLine();
+
+            // Account creation
+            accountCreation();
         }
 
         static string getTimeOfDay()
@@ -36,8 +47,13 @@ namespace password_keeper
 
             // extracts time (including am/pm from dateTime as a string 
             timeOfDay = currentDateTime.ToShortTimeString(); 
-;
+
             return timeOfDay; 
+        }
+
+        static void accountCreation()
+        {
+
         }
     }
 }
