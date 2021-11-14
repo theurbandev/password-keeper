@@ -1,8 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "tPVHq61TTpvLhS8r0RUB8GR4+2zRVlYsFTamhcF50qpB6+bmsye59V7RCJ+u4JUofDm51zi1Sj/O8JF+yjNRxA==",
+  "dgSpecHash": "xHHN++AEAXU8cJP+MCG2MQsEaRrcSf4YQmeSp/I6pMKxVVEx3hV6ZDv96lKzqbVtlvHFt4zxvlon4yP5Zysl9A==",
   "success": true,
   "projectFilePath": "C:\\Dev\\password-keeper\\password-keeper.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\matth\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\5.0.12\\microsoft.netcore.app.host.win-x64.5.0.12.nupkg.sha512",
+    "C:\\Users\\matth\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\5.0.0\\microsoft.aspnetcore.app.ref.5.0.0.nupkg.sha512",
+    "C:\\Users\\matth\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\5.0.0\\microsoft.windowsdesktop.app.ref.5.0.0.nupkg.sha512",
+    "C:\\Users\\matth\\.nuget\\packages\\microsoft.netcore.app.ref\\5.0.0\\microsoft.netcore.app.ref.5.0.0.nupkg.sha512"
+  ],
   "logs": []
 }

@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "31de9bb7-b49b-446c-bbf0-ff0355e59372": {
+      "ProjectGuid": "31de9bb7-b49b-446c-bbf0-ff0355e59372",
+      "DisplayName": "password-keeper",
+      "ColorIndex": 0
+    }
+  },
+  "NextColorIndex": 1
+}
