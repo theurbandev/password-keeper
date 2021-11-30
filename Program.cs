@@ -55,7 +55,7 @@ namespace password_keeper
                 Console.WriteLine("\n" + "Username is: " + username);
                 Console.WriteLine("Password is: " + pwd);
 
-                accountDB_save();
+                accountDB_save(username, pwd);
             }
         }
 
@@ -86,7 +86,7 @@ namespace password_keeper
             return userName;
         }
 
-        static void accountDB_save()
+        static void accountDB_save(string username, string password)
         {
             Console.WriteLine("\n" + "Connecting to database...");
 
@@ -95,15 +95,11 @@ namespace password_keeper
             {
                 Console.WriteLine("Saving data...");
 
-                string query = "SELECT * FROM USERS";
+                string query = $"INSERT INTO USERS(user_name, user_password) VALUES ('{username}', '{password}')";
                 var cmd = new MySqlCommand(query, dbCon.Connection);
-                var reader = cmd.ExecuteReader();
+                cmd.ExecuteNonQuery();
 
-                while (reader.Read())
-                {
-                    string someStringFromColumnZero = reader.GetString(0);
-                    Console.WriteLine("Users: " + reader);
-                }
+                //sqlTestMethod();
                 dbCon.Close();
 
                 Console.WriteLine("Data saved...");
@@ -111,6 +107,20 @@ namespace password_keeper
             else
             {
                 Console.WriteLine("Connection failed...");
+            }
+        }
+        
+        static void sqlTestMethod()
+        {
+            var dbCon = DBConnection.Instance();
+            string query2 = "SELECT * FROM USERS";
+            var cmd = new MySqlCommand(query2, dbCon.Connection);
+
+            var reader = cmd.ExecuteReader();
+
+            while (reader.Read())
+            {
+            Console.WriteLine("Users: " + reader.GetString(1));
             }
         }
     }
