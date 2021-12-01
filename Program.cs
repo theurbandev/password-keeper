@@ -25,7 +25,7 @@ namespace password_keeper
             }
             else
             {
-                Console.WriteLine("----- Welcome to password manager. One applicaiton to manange all your passwords! -----" + "\n");
+                Console.WriteLine("----- Welcome to password manager. One applicaiton to manange all your passwords! -----");
                 Console.WriteLine("What is your name: ");
                 userName = Console.ReadLine();
 
@@ -117,6 +117,7 @@ namespace password_keeper
                         return false;
                     }
                 }
+                rdr.Close();
             }
             return false;
         }
@@ -146,6 +147,7 @@ namespace password_keeper
                         return false;
                     }
                 }
+                rdr.Close();
             }
             else
             {
@@ -193,9 +195,9 @@ namespace password_keeper
 
                 string query = $"INSERT INTO USERS(user_name, user_password) VALUES ('{username}', '{password}')";
                 var cmd = new MySqlCommand(query, dbCon.Connection);
+
                 cmd.ExecuteNonQuery();
 
-                //dbCon.Close();
                 Console.WriteLine("Data saved...");
 
                 //clear the screen
