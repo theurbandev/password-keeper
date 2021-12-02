@@ -2,6 +2,7 @@
 using Data;
 using MySql.Data;
 using MySql.Data.MySqlClient;
+using MenuSelector;
 
 
 namespace password_keeper
@@ -77,7 +78,9 @@ namespace password_keeper
                     passwordSubmited = Console.ReadLine();
                     pwd_user_valid = validateCreds(passwordSubmited, usernameSubmited);
                 }
-                Console.WriteLine("");
+
+                //run main menu
+                MenuSelector.MenuSelectorClass.runMainMenu();
             }
             else
             {
