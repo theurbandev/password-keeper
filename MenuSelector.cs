@@ -2,25 +2,32 @@
 
 using System;
 using System.Linq;
+using System.Collections.Generic;
 using Data;
 using MySql.Data;
 using MySql.Data.MySqlClient;
 
 namespace MenuSelector
 {
-    public partial class MenuSelectorClass
+    public class MenuSelectorClass
     {
+        public static string servciveName { get; set; }
+        public static string email { get; set; }
+        public static string username { get; set; }
+        public static string password { get; set; }
+
         public static void runMainMenu()
         {
-            Console.Clear();
+            //Console.Clear();
 
             Console.WriteLine(string.Concat(Enumerable.Repeat("-", 50)));
 
                 Console.WriteLine("Please make a selection: ");
                 Console.WriteLine("1. Add new account information.");
-                Console.WriteLine("2. Search by email.");
-                Console.WriteLine("3. Search by password.");
-                Console.WriteLine("4. EXIT.");
+                Console.WriteLine("2. Search by website/service name.");
+                Console.WriteLine("3. Search by email.");
+                Console.WriteLine("4. Search by password.");
+                Console.WriteLine("5. EXIT.");
 
             Console.WriteLine(string.Concat(Enumerable.Repeat("-", 50)));
 
@@ -34,12 +41,18 @@ namespace MenuSelector
                     AddNewAccount();
                     break;
                 case "2":
-                    Console.WriteLine("\n" + "SEARCH BY EMAIL");
+                    Console.WriteLine("\n" + "SEARCH BY WEBSITE/SERVICE NAME");
+                    SearchEngine("service");
                     break;
                 case "3":
-                    Console.WriteLine("\n" + "SEARCH BY PASSWORD");
+                    Console.WriteLine("\n" + "SEARCH BY EMAIL");
+                    SearchEngine("email");
                     break;
                 case "4":
+                    Console.WriteLine("\n" + "SEARCH BY PASSWORD");
+                    SearchEngine("password");
+                    break;
+                case "5":
                     return;
                 default:
                     runMainMenu();
@@ -90,8 +103,9 @@ namespace MenuSelector
 
                     cmd.ExecuteNonQuery();
 
+                    Console.Clear();
                     Console.WriteLine("Data saved...");
-                    System.Threading.Thread.Sleep(500);
+                    System.Threading.Thread.Sleep(800);
 
                     runMainMenu();
                 }
@@ -104,6 +118,57 @@ namespace MenuSelector
             {
                 Console.Clear();
                 AddNewAccount();
+            }
+        }
+
+        public static void SearchEngine(string searchType)
+        {
+            string query = string.Empty;
+
+            List<MenuSelectorClass> results = new List<MenuSelectorClass>();
+
+            switch (searchType)
+            {
+                case "service":
+                    Console.WriteLine("Service name: ");
+                    string serviceName = Console.ReadLine();
+                    query = $"SELECT serviceName, email, username, password FROM accounts WHERE serviceName LIKE '{serviceName}'";
+                    break;
+                case "email":
+                    Console.WriteLine("Email address: ");
+                    string email = Console.ReadLine();
+                    query = $"SELECT serviceName, email, username, password FROM accounts WHERE email LIKE '{email}'";
+                    break;
+                case "password":
+                    Console.WriteLine("Password: ");
+                    string password = Console.ReadLine();
+                    query = $"SELECT serviceName, email, username, password FROM accounts WHERE password LIKE '{password}'";
+                    break;
+            }
+
+            //db hit
+            var dbCon = DBConnection.Instance();
+            if (dbCon.IsConnect())
+            {
+                var cmd = new MySqlCommand(query, dbCon.Connection);
+                cmd.ExecuteNonQuery();
+                MySqlDataReader rdr = cmd.ExecuteReader();
+
+                while (rdr.Read())
+                {
+                    MenuSelectorClass.servciveName = rdr[0].ToString();
+                    MenuSelectorClass.email = rdr[1].ToString();
+                    MenuSelectorClass.username = rdr[2].ToString();
+                    MenuSelectorClass.password = rdr[3].ToString();
+
+                    Console.WriteLine(string.Concat(Enumerable.Repeat("-", 50)) + "\n");
+                    Console.WriteLine(MenuSelectorClass.servciveName);
+                    Console.WriteLine(MenuSelectorClass.email);
+                    Console.WriteLine(MenuSelectorClass.username);
+                    Console.WriteLine(MenuSelectorClass.password);
+                }
+                rdr.Close();
+                runMainMenu();
             }
         }
     } 
